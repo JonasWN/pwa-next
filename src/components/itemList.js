@@ -24,23 +24,38 @@ const request = async () => {
 
 const fetcher = async (...args) => {
   let authToken = await request()
-  fetch(...args, {
+  return fetch(...args, {
     headers: {
       Authorization: 'Bearer ' + authToken,
       'Client-ID': clientId,
     },
-  }).then(res => console.log(res.json()))
+  }).then(res => res.json())
 }
 
-export const ItemList = () => {
-  const { data: result } = useSWR(`${apiBase}/streams?game_id=33214`, fetcher)
+const ItemList = () => {
+  const { data: result, error } = useSWR(`${apiBase}/games/top`, fetcher)
 
+  if (error) return <p>failed to load</p>
+  if (!result) return <p>loading...</p>
   return (
     <StyleditemList>
-      {result &&
-        result.data.map(stream => <div key={stream.id}>{stream.id}</div>)}
+      {result.data.map(s => {
+        return (
+          <React.Fragment key={s.id}>
+            <img
+              src={s.box_art_url
+                .replace('{width}', '250')
+                .replace('{height}', '350')}
+              alt="game-cover"
+            />
+            <h3>{s.name}</h3>
+          </React.Fragment>
+        )
+      })}
     </StyleditemList>
   )
 }
 
 const StyleditemList = styled.section``
+
+export default ItemList
