@@ -1,10 +1,10 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
 const sizes = {
-  sm: "420px",
-  md: "768px",
-  lg: "1280px",
-  xl: "1920px",
+  sm: '420px',
+  md: '768px',
+  lg: '1280px',
+  xl: '1920px',
 }
 
 export const device = {
@@ -17,6 +17,6 @@ export const device = {
 export const Container = styled.div`
   display: flex;
   min-height: 100vh;
-  justify-content: space-between;
   flex-direction: column;
+  max-width: 1080px;
 `
