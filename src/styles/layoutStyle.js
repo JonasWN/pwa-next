@@ -19,4 +19,5 @@ export const Container = styled.div`
   min-height: 100vh;
   flex-direction: column;
   max-width: 1080px;
+  margin: 0 auto;
 `

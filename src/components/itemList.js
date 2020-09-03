@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import useSWR from 'swr'
 
 const apiBase = 'https://api.twitch.tv/helix'
 const clientId = 's8kiuunc8o3dzofforg4mni87haedx'
-const clientSecret = '115hkw0a7luhysejp2fo5srcqexhpi'
+const clientSecret = '9yibl7tnb6dci68phl6jo0q74bvwlx'
 
 const request = async () => {
   try {
@@ -33,11 +33,13 @@ const fetcher = async (...args) => {
 }
 
 const ItemList = ({ userName }) => {
-  const { data: result } = useSWR(`${apiBase}/users?login=${userName}`, fetcher)
+  const [user, setUser] = useState(`trakst`)
+  const { data: result } = useSWR(`${apiBase}/users?login=${user}`, fetcher)
   const { data: follows, error: userError } = useSWR(
     () => `${apiBase}/users/follows?from_id=${result.data[0].id}`,
     fetcher
   )
+
   const { data: streams, error } = useSWR(
     () =>
       `${apiBase}/streams?${follows.data
@@ -46,8 +48,20 @@ const ItemList = ({ userName }) => {
     fetcher
   )
 
+  useEffect(() => {
+    if (userName) {
+      setUser(userName)
+    }
+  }, [userName])
+
   if (error && userError) return <p>failed to load</p>
-  if (!streams) return <p>loading...</p>
+  if (!streams) return <p style={{ textAlign: 'center' }}>Loading...</p>
+  if (streams.data.length === 0)
+    return (
+      <p style={{ textAlign: 'center' }}>
+        either no streams are online or wrong userName
+      </p>
+    )
   return (
     <StyleditemList>
       {streams.data.map(s => {
@@ -75,6 +89,10 @@ const StyleditemList = styled.ul`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 1rem;
+
+  p {
+    text-align: center;
+  }
 
   h4 {
     width: 150px;

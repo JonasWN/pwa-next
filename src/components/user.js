@@ -13,9 +13,9 @@ export const User = () => {
 
   return (
     <StyledUser>
-      <h1>{userName} Current Streams</h1>
+      <h1>{userName} is following</h1>
       <input
-        placeholder="username"
+        placeholder="type twitch username"
         type="text"
         onKeyDown={handleKeyDown}
       ></input>
