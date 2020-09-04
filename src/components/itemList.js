@@ -65,23 +65,21 @@ const ItemList = ({ userName }) => {
 
   return (
     <StyleditemList>
-      {streams.data.map(s => {
-        return (
-          <li key={s.id}>
-            <a href={`https://twitch.tv/${s.user_name}`}>
-              <h3>{s.user_name}</h3>
-              <h4>{s.title}</h4>
-              <img
-                src={s.thumbnail_url
-                  .replace('{width}', '250')
-                  .replace('{height}', '200')}
-                alt="stream-thumb"
-              />
-              <p>viewers: {s.viewer_count}</p>
-            </a>
-          </li>
-        )
-      })}
+      {streams.data.map(s => (
+        <li key={s.id}>
+          <a href={`https://twitch.tv/${s.user_name}`}>
+            <h3>{s.user_name}</h3>
+            <h4>{s.title}</h4>
+            <img
+              src={s.thumbnail_url
+                .replace('{width}', '250')
+                .replace('{height}', '200')}
+              alt="stream-thumb"
+            />
+            <p>viewers: {s.viewer_count}</p>
+          </a>
+        </li>
+      ))}
     </StyleditemList>
   )
 }
