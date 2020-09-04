@@ -33,7 +33,7 @@ const fetcher = async (...args) => {
 }
 
 const ItemList = ({ userName }) => {
-  const [user, setUser] = useState(`trakst`)
+  const [user, setUser] = useState(`reynad`)
   const { data: result } = useSWR(`${apiBase}/users?login=${user}`, fetcher)
   const { data: follows, error: userError } = useSWR(
     () => `${apiBase}/users/follows?from_id=${result.data[0].id}`,
@@ -62,6 +62,7 @@ const ItemList = ({ userName }) => {
         either no streams are online or wrong userName
       </p>
     )
+
   return (
     <StyleditemList>
       {streams.data.map(s => {
@@ -95,8 +96,10 @@ const StyleditemList = styled.ul`
   }
 
   h4 {
-    width: 150px;
     white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 50%;
   }
 
   a {

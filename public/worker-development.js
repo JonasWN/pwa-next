@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("self.addEventListener('message', event => {\r\n  // HOW TO TEST THIS?\r\n  // Run this in your browser console:\r\n  //     window.navigator.serviceWorker.controller.postMessage({command: 'log', message: 'hello world'})\r\n  // OR use next-pwa injected workbox object\r\n  //     window.workbox.messageSW({command: 'log', message: 'hello world'})\r\n  console.log(event.data)\r\n})\r\n\n\n//# sourceURL=webpack:///./worker/index.js?");
+eval("self.addEventListener('message', event => {\r\n  // HOW TO TEST THIS?\r\n  // Run this in your browser console:\r\n  //     window.navigator.serviceWorker.controller.postMessage({command: 'log', message: 'hello world'})\r\n  // OR use next-pwa injected workbox object\r\n  //     window.workbox.messageSW({command: 'log', message: 'hello world'})\r\n  console.log(event.data)\r\n})\r\nself.addEventListener('push', function (event) {\r\n  console.log(event)\r\n})\r\n\n\n//# sourceURL=webpack:///./worker/index.js?");
 
 /***/ })
 
